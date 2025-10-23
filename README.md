@@ -1,16 +1,20 @@
 # Clio Demo
 
-A conversation analysis pipeline implementing the Clio methodology for extracting facets, clustering, and hierarchical organization.
+A conversation analysis pipeline implementing the [Clio methodology](http://arxiv.org/abs/2412.13678) for extracting facets, clustering, and hierarchical organization.
 
 ## Overview
 
 This project uses:
-- **Facet extraction** with Claude 3.5 Haiku (request, language, task, concern)
-- **Embedding-based clustering** with sentence-transformers (all-mpnet-base-v2)
-- **LLM-powered cluster naming** for interpretability
-- **UMAP visualization** for cluster inspection
-- **Hierarchical organization** for structured insights
+- **Facet extraction:** with Claude 3.5 Haiku (request, language, task, concern)
+- **Embedding-based clustering:** with sentence-transformers (all-mpnet-base-v2)
+- **LLM-powered cluster naming:** for interpretability
+- **UMAP visualization:** for cluster inspection
+- **Hierarchical organization:** for structured insights
 
+Things further implement:
+- **Full hierarchizer** would be used with more clusters
+- **Privacy auditor** one final step before publishing, also would only be useful with more clusters
+- **Visualizations** TBD with more detailed data + RQs
 ---
 
 ## Quick Start
