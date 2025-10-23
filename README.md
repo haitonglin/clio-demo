@@ -2,19 +2,6 @@
 
 A conversation analysis pipeline implementing the [Clio methodology](http://arxiv.org/abs/2412.13678) for extracting facets, clustering, and hierarchical organization.
 
-## Overview
-
-This project uses:
-- **Facet extraction:** with Claude 3.5 Haiku (request, language, task, concern)
-- **Embedding-based clustering:** with sentence-transformers (all-mpnet-base-v2)
-- **LLM-powered cluster naming:** for interpretability
-- **UMAP visualization:** for cluster inspection
-- **Hierarchical organization:** for structured insights
-
-Things further implement:
-- **Full hierarchizer** would be used with more clusters
-- **Privacy auditor** one final step before publishing, also would only be useful with more clusters
-- **Visualizations** TBD with more detailed data + RQs
 ---
 
 ## Quick Start
@@ -45,31 +32,17 @@ Open and execute `main.ipynb` to run the complete pipeline.
 
 ## Pipeline Stages
 
-The `main.ipynb` notebook executes these stages in sequence:
+🌟The `main.ipynb` notebook is the main file in this project, it executes these stages in sequence:
 
-| Stage | Description |
-|-------|-------------|
-| 1. Data Preprocessing | Decode base64 conversations to XML format |
-| 2. Facet Extraction | Extract 4 facets using Claude |
-| 3. Embedding & Clustering | Generate embeddings and perform K-means |
-| 4. Cluster Naming | Generate human-readable cluster names |
-| 5. Visualization | Create UMAP projections for inspection |
-| 6. Hierarchy Building | Organize clusters hierarchically |
+| Stage | Module | Description |
+|-------|--------|-------------|
+| 1. Data Preprocessing | `preprocessing.py` | Decode base64 conversations to XML format |
+| 2. Facet Extraction | `facet_extraction.py` | Extract 4 facets using Claude |
+| 3. Embedding & Clustering | `clustering.py` | Generate embeddings and perform K-means |
+| 4. Cluster Naming | `cluster_naming.py` | Generate human-readable cluster names |
+| 5. Visualization | `projector.py` | Create UMAP projections for inspection |
+| 6. Hierarchy Building | `hierarchizer_demo.py` | Organize clusters hierarchically |
 
----
-
-## Core Modules
-
-### Module Overview
-
-| Module | Purpose | Key Innovation |
-|--------|---------|----------------|
-| `preprocessing.py` | Data preprocessing & XML transformation | Clean base64 → XML pipeline |
-| `facet_extraction.py` | Extract facets with Claude 3.5 Haiku | **4x faster batched mode** |
-| `clustering.py` | Embedding-based clustering | Intelligent k selection |
-| `cluster_naming.py` | LLM-powered cluster naming | Exact paper implementation |
-| `projector.py` | UMAP 2D visualization | Cosine-metric projections |
-| `hierarchizer_demo.py` | Hierarchical cluster organization | Agglomerative clustering |
 
 ---
 
@@ -104,6 +77,16 @@ The `main.ipynb` notebook executes these stages in sequence:
 - Preserves original 4-call method for reproducibility
 - Handles PII removal and de-identification per paper requirements
 
+
+#### Facet Types
+
+| Facet | Description |
+|-------|-------------|
+| Request | What the user is asking for |
+| Language | The style and tone of communication |
+| Task | The underlying task or goal |
+| Concern | Areas of user concern or importance |
+
 ---
 
 ### clustering.py
@@ -119,7 +102,7 @@ The `main.ipynb` notebook executes these stages in sequence:
 | `summarize_clusters()` | Generate cluster size statistics |
 
 **Key Modifications:**
-- Intelligent k selection: `k = n_samples // 50`, capped at 40
+- k selection: `k = n_samples // 50`, capped at 40 (originally not used in paper, might need modification later)
 - Optimized scikit-learn KMeans parameters
 - Maintains paper's embedding model (all-mpnet-base-v2)
 
@@ -205,22 +188,9 @@ The `main.ipynb` notebook executes these stages in sequence:
 
 ---
 
-## Key Features
+### Notes
 
-| Feature | Benefit |
-|---------|---------|
-| **Batched Processing** | 4x faster facet extraction |
-| **Automatic K Selection** | Smart cluster count determination |
-| **Paper-Accurate Implementation** | Faithful to Clio methodology |
-| **Interactive Visualization** | UMAP projections for exploration |
-| **Hierarchical Organization** | Multi-level cluster structure |
-| **Reproducible Results** | Caching and saved artifacts |
-
----
-
-## Technical Details
-
-### Models Used
+**Models Used**
 
 | Component | Model |
 |-----------|-------|
@@ -230,11 +200,12 @@ The `main.ipynb` notebook executes these stages in sequence:
 | Dimensionality Reduction | UMAP |
 | Hierarchy | Agglomerative Clustering |
 
-### Facet Types
 
-| Facet | Description |
-|-------|-------------|
-| Request | What the user is asking for |
-| Language | The style and tone of communication |
-| Task | The underlying task or goal |
-| Concern | Areas of user concern or importance |
+Things to further implement/TBD:
+- **Full hierarchizer:** would be used with more clusters
+- **Privacy auditor:** one final step before publishing, also would only be useful with more clusters
+- **Visualizations:** TBD with more detailed data + RQs
+
+Things to adjust when it's ready:
+- k-selection in `clustering.py`
+- Changing API to in-house LLM (TBD)
