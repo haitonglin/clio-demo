@@ -2,8 +2,6 @@
 
 A conversation analysis pipeline implementing the [Clio methodology](http://arxiv.org/abs/2412.13678) for extracting facets, clustering, and hierarchical organization.
 
----
-
 ## Quick Start
 
 ### 1. Environment Setup
@@ -28,7 +26,7 @@ pip install -r requirements.txt
 
 Open and execute `main.ipynb` to run the complete pipeline.
 
----
+
 
 ## Pipeline Stages
 
@@ -44,7 +42,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 | 6. Hierarchy Building | `hierarchizer_demo.py` | Organize clusters hierarchically |
 
 
----
+
 
 ## Module Details
 
@@ -59,7 +57,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 
 **Implementation:** Clean base64 → JSON → turns → XML pipeline as described in the Clio paper.
 
----
+
 
 ### facet_extraction.py
 
@@ -78,7 +76,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 - Handles PII removal and de-identification per paper requirements
 
 
-#### Facet Types
+**Facet Types**
 
 | Facet | Description |
 |-------|-------------|
@@ -87,7 +85,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 | Task | The underlying task or goal |
 | Concern | Areas of user concern or importance |
 
----
+
 
 ### clustering.py
 
@@ -106,7 +104,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 - Optimized scikit-learn KMeans parameters
 - Maintains paper's embedding model (all-mpnet-base-v2)
 
----
+
 
 ### cluster_naming.py
 
@@ -125,7 +123,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 - Configurable parameters for different use cases
 - Saves prompts and outputs for debugging
 
----
+
 
 ### projector.py
 
@@ -143,7 +141,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 - Caching system for reproducible results
 - Clean matplotlib-based plotting (no seaborn dependency)
 
----
+
 
 ### hierarchizer_demo.py
 
@@ -161,7 +159,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 - Configurable hierarchy depth and parameters
 - JSON output for easy integration
 
----
+
 
 ## Data Files
 
@@ -186,7 +184,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 | `embeddings.npy` | Saved embeddings for reuse |
 | `artifacts/` | Directory containing intermediate results and visualizations |
 
----
+
 
 ### Notes
 
