@@ -1,212 +1,236 @@
 # Clio Demo
 
-A Python implementation of the Clio paper's methodology for conversation analysis and clustering. This demo processes chat conversations through a complete pipeline: preprocessing → facet extraction → clustering → naming → visualization → hierarchy building.
+A conversation analysis pipeline implementing the Clio methodology for extracting facets, clustering, and hierarchical organization.
 
 ## Overview
 
-This project implements the Clio methodology for analyzing and clustering conversations using:
-- **Facet extraction** using Claude 3.5 Haiku to identify request, language, task, and concern facets
-- **Embedding-based clustering** using sentence-transformers (all-mpnet-base-v2)
-- **Cluster naming** using LLM-generated summaries and names
-- **Visualization** using UMAP projection
-- **Hierarchy building** for organizing clusters
+This project uses:
+- **Facet extraction** with Claude 3.5 Haiku (request, language, task, concern)
+- **Embedding-based clustering** with sentence-transformers (all-mpnet-base-v2)
+- **LLM-powered cluster naming** for interpretability
+- **UMAP visualization** for cluster inspection
+- **Hierarchical organization** for structured insights
 
-## Setup
+---
 
-1. Create conda environment:
-   ```bash
-   conda create -n clio_demo python=3.11.9
-   conda activate clio_demo
-   ```
+## Quick Start
 
-2. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+### 1. Environment Setup
 
-3. Set your Anthropic API key:
-   - macOS/Linux: `export ANTHROPIC_API_KEY="sk-ant-xxxx"`
-   - Windows: `setx ANTHROPIC_API_KEY "sk-ant-xxxx"`
+```bash
+# Create conda environment
+conda create -n clio_demo python=3.11.9
+conda activate clio_demo
 
-## Project Structure
+# Install dependencies
+pip install -r requirements.txt
+```
 
-### Core Pipeline Files
+### 2. API Configuration
 
-#### `main.ipynb`
-The main execution notebook containing the complete Clio pipeline:
-1. **Data Preprocessing** - Decode base64 conversations to XML format
-2. **Facet Extraction** - Extract 4 facets (request, language, task, concerning) using Claude
-3. **Embedding & Clustering** - Generate embeddings and perform K-means clustering
-4. **Cluster Naming** - Generate human-readable names and summaries for clusters
-5. **Visualization** - UMAP projection for cluster inspection
-6. **Hierarchy Building** - Organize clusters into hierarchical structure
+| Platform | Command |
+|----------|---------|
+| macOS/Linux | `export ANTHROPIC_API_KEY="sk-ant-xxxx"` |
+| Windows | `setx ANTHROPIC_API_KEY "sk-ant-xxxx"` |
 
-### Python Modules
+### 3. Run Pipeline
 
-#### `preprocessing.py`
-**Purpose**: Handles conversation data preprocessing and XML transformation.
+Open and execute `main.ipynb` to run the complete pipeline.
 
-**Key Functions**:
-- `decode_row_to_turns()` - Decodes base64-encoded conversation data to structured turns
-- `xml_transform()` - Converts conversation turns to XML format for LLM processing
+---
 
-**Modifications**: Clean implementation of the base64 → JSON → turns → XML pipeline as described in the Clio paper.
+## Pipeline Stages
 
-#### `facet_extraction.py`
-**Purpose**: Extracts 4 facets from conversations using Claude 3.5 Haiku.
+The `main.ipynb` notebook executes these stages in sequence:
 
-**Key Functions**:
-- `run_facets_on_dataframe()` - **BATCHED MODE** (default, 4x faster)
-- `run_facets_on_dataframe_sequential()` - Original paper method (4 API calls per conversation)
-- `ClaudeClient` - Wrapper for Anthropic API integration
+| Stage | Description |
+|-------|-------------|
+| 1. Data Preprocessing | Decode base64 conversations to XML format |
+| 2. Facet Extraction | Extract 4 facets using Claude |
+| 3. Embedding & Clustering | Generate embeddings and perform K-means |
+| 4. Cluster Naming | Generate human-readable cluster names |
+| 5. Visualization | Create UMAP projections for inspection |
+| 6. Hierarchy Building | Organize clusters hierarchically |
 
-**Modifications**: 
-- **Major optimization**: Implemented batched facet extraction (1 API call per conversation instead of 4)
+---
+
+## Core Modules
+
+### Module Overview
+
+| Module | Purpose | Key Innovation |
+|--------|---------|----------------|
+| `preprocessing.py` | Data preprocessing & XML transformation | Clean base64 → XML pipeline |
+| `facet_extraction.py` | Extract facets with Claude 3.5 Haiku | **4x faster batched mode** |
+| `clustering.py` | Embedding-based clustering | Intelligent k selection |
+| `cluster_naming.py` | LLM-powered cluster naming | Exact paper implementation |
+| `projector.py` | UMAP 2D visualization | Cosine-metric projections |
+| `hierarchizer_demo.py` | Hierarchical cluster organization | Agglomerative clustering |
+
+---
+
+## Module Details
+
+### preprocessing.py
+
+**Purpose:** Handles conversation data preprocessing and XML transformation
+
+| Function | Description |
+|----------|-------------|
+| `decode_row_to_turns()` | Decodes base64-encoded conversation data to structured turns |
+| `xml_transform()` | Converts conversation turns to XML format for LLM processing |
+
+**Implementation:** Clean base64 → JSON → turns → XML pipeline as described in the Clio paper.
+
+---
+
+### facet_extraction.py
+
+**Purpose:** Extracts 4 facets from conversations using Claude 3.5 Haiku
+
+| Function | Description |
+|----------|-------------|
+| `run_facets_on_dataframe()` | **BATCHED MODE** (default, 4x faster) - 1 API call per conversation |
+| `run_facets_on_dataframe_sequential()` | Original paper method - 4 API calls per conversation |
+| `ClaudeClient` | Wrapper for Anthropic API integration |
+
+**Key Modifications:**
+- **Major optimization:** Batched facet extraction (1 API call vs 4)
 - Maintains exact Clio paper prompts and safety guidelines
 - Preserves original 4-call method for reproducibility
-- Handles PII removal and de-identification as per paper requirements
+- Handles PII removal and de-identification per paper requirements
 
-#### `clustering.py`
-**Purpose**: Implements embedding-based clustering using sentence transformers.
+---
 
-**Key Functions**:
-- `embed_facets()` - Generate embeddings using all-mpnet-base-v2
-- `run_kmeans()` - K-means clustering with automatic k selection
-- `choose_k()` - Heuristic for selecting optimal number of clusters
-- `assign_clusters()` - Assign cluster labels to data
-- `summarize_clusters()` - Generate cluster size statistics
+### clustering.py
 
-**Modifications**: 
-- Added intelligent k selection based on dataset size (heuristic: k = n_samples // 50, capped at 40)
-- Uses scikit-learn's KMeans with optimized parameters
-- Maintains paper's embedding model choice (all-mpnet-base-v2)
+**Purpose:** Implements embedding-based clustering using sentence transformers
 
-#### `cluster_naming.py`
-**Purpose**: Generates human-readable names and summaries for clusters using LLM.
+| Function | Description |
+|----------|-------------|
+| `embed_facets()` | Generate embeddings using all-mpnet-base-v2 |
+| `run_kmeans()` | K-means clustering with automatic k selection |
+| `choose_k()` | Heuristic for selecting optimal number of clusters |
+| `assign_clusters()` | Assign cluster labels to data |
+| `summarize_clusters()` | Generate cluster size statistics |
 
-**Key Functions**:
-- `name_all_clusters()` - Main function to name all clusters
-- `sample_cluster_examples()` - Paper-accurate sampling (≤50 in-cluster + 50 nearest out-of-cluster)
-- `build_cluster_prompt()` - Constructs Clio-style prompts for cluster naming
-- `generate_cluster_name()` - Single cluster naming with fallback handling
+**Key Modifications:**
+- Intelligent k selection: `k = n_samples // 50`, capped at 40
+- Optimized scikit-learn KMeans parameters
+- Maintains paper's embedding model (all-mpnet-base-v2)
 
-**Modifications**:
+---
+
+### cluster_naming.py
+
+**Purpose:** Generates human-readable names and summaries for clusters using LLM
+
+| Function | Description |
+|----------|-------------|
+| `name_all_clusters()` | Main function to name all clusters |
+| `sample_cluster_examples()` | Paper-accurate sampling (≤50 in-cluster + 50 nearest out-of-cluster) |
+| `build_cluster_prompt()` | Constructs Clio-style prompts for cluster naming |
+| `generate_cluster_name()` | Single cluster naming with fallback handling |
+
+**Key Modifications:**
 - **Exact paper implementation** of sampling strategy and prompt structure
-- Added robust error handling with fallback name generation
+- Robust error handling with fallback name generation
 - Configurable parameters for different use cases
-- Saves prompts and outputs for debugging and analysis
+- Saves prompts and outputs for debugging
 
-#### `projector.py`
-**Purpose**: UMAP-based 2D visualization for cluster inspection.
+---
 
-**Key Functions**:
-- `compute_umap()` - Generate 2D UMAP projections
-- `project_and_merge()` - Merge projections with original data
-- `plot_projection()` - Create scatter plots for cluster visualization
+### projector.py
 
-**Modifications**:
+**Purpose:** UMAP-based 2D visualization for cluster inspection
+
+| Function | Description |
+|----------|-------------|
+| `compute_umap()` | Generate 2D UMAP projections |
+| `project_and_merge()` | Merge projections with original data |
+| `plot_projection()` | Create scatter plots for cluster visualization |
+
+**Key Modifications:**
 - Uses cosine distance metric (appropriate for sentence embeddings)
-- Configurable UMAP parameters for different visualization needs
+- Configurable UMAP parameters
 - Caching system for reproducible results
 - Clean matplotlib-based plotting (no seaborn dependency)
 
-#### `hierarchizer_demo.py`
-**Purpose**: Builds hierarchical structure for organizing clusters.
+---
 
-**Key Functions**:
-- `build_hierarchy()` - Main hierarchy construction
-- `compute_cluster_centroids()` - Calculate cluster centroids
-- `group_clusters()` - Agglomerative clustering on centroids
+### hierarchizer_demo.py
 
-**Modifications**:
-- Simplified hierarchy building for demo purposes
+**Purpose:** Builds hierarchical structure for organizing clusters
+
+| Function | Description |
+|----------|-------------|
+| `build_hierarchy()` | Main hierarchy construction |
+| `compute_cluster_centroids()` | Calculate cluster centroids |
+| `group_clusters()` | Agglomerative clustering on centroids |
+
+**Key Modifications:**
+- Simplified hierarchy building for demo
 - Uses cosine distance for cluster similarity
 - Configurable hierarchy depth and parameters
-- JSON output for easy integration with other tools
+- JSON output for easy integration
 
-### Data Files
+---
 
-#### `sample_data.csv`
-- 1000 sample conversations generated by GPT-5o
-- Columns: `id`, `created_dttm`, `title`, `tags`, `encoded_content`
-- Simple 2-4 turn conversations
-- Base64-encoded conversation data
+## Data Files
 
-#### Generated Files
-- `data/chats_xml.csv` - Preprocessed conversations in XML format
-- `data/facets.csv` - Extracted facets for all conversations
-- `data/clustered_named.csv` - Final results with cluster assignments and names
-- `embeddings.npy` - Saved embeddings for reuse
-- `artifacts/` - Directory containing intermediate results and visualizations
+### Input Data
 
-## Key Modifications from Original Paper
+| File | Description |
+|------|-------------|
+| `sample_data.csv` | 1000 sample conversations generated by GPT-5o |
 
-### 1. **Batched Facet Extraction** (Major Optimization)
-- **Original**: 4 separate API calls per conversation
-- **Modified**: 1 API call per conversation (4x speed improvement)
-- **Impact**: Dramatically reduces processing time and API costs
-- **Preservation**: Original 4-call method still available for reproducibility
+**Structure:**
+- **Columns:** `id`, `created_dttm`, `title`, `tags`, `encoded_content`
+- **Format:** Base64-encoded conversation data
+- **Content:** Simple 2-4 turn conversations
 
-### 2. **Intelligent K Selection**
-- **Original**: Manual k selection
-- **Modified**: Automatic k selection based on dataset size
-- **Formula**: k = min(max(3, n_samples // 50), 40)
-- **Benefit**: Reduces manual parameter tuning
+### Generated Files
 
-### 3. **Enhanced Error Handling**
-- **Original**: Basic error handling
-- **Modified**: Robust fallback mechanisms for LLM failures
-- **Features**: Automatic retry, fallback name generation, detailed logging
+| File | Description |
+|------|-------------|
+| `data/chats_xml.csv` | Preprocessed conversations in XML format |
+| `data/facets.csv` | Extracted facets for all conversations |
+| `data/clustered_named.csv` | Final results with cluster assignments and names |
+| `embeddings.npy` | Saved embeddings for reuse |
+| `artifacts/` | Directory containing intermediate results and visualizations |
 
-### 4. **Improved Visualization**
-- **Original**: Basic plotting
-- **Modified**: Professional UMAP visualizations with caching
-- **Features**: Reproducible results, configurable parameters, clean aesthetics
+---
 
-### 5. **Modular Architecture**
-- **Original**: Monolithic implementation
-- **Modified**: Clean, modular Python package structure
-- **Benefits**: Easy to extend, test, and maintain
+## Key Features
 
-## Usage
+| Feature | Benefit |
+|---------|---------|
+| **Batched Processing** | 4x faster facet extraction |
+| **Automatic K Selection** | Smart cluster count determination |
+| **Paper-Accurate Implementation** | Faithful to Clio methodology |
+| **Interactive Visualization** | UMAP projections for exploration |
+| **Hierarchical Organization** | Multi-level cluster structure |
+| **Reproducible Results** | Caching and saved artifacts |
 
-1. **Run the complete pipeline**:
-   ```bash
-   jupyter notebook main.ipynb
-   ```
+---
 
-2. **Use individual modules**:
-   ```python
-   from preprocessing import decode_row_to_turns, xml_transform
-   from facet_extraction import run_facets_on_dataframe, ClaudeClient
-   from clustering import embed_facets, run_kmeans
-   # ... etc
-   ```
+## Technical Details
 
-## Requirements
+### Models Used
 
-See `requirements.txt` for complete dependency list. Key dependencies:
-- `pandas` - Data manipulation
-- `numpy` - Numerical operations
-- `scikit-learn` - Clustering algorithms
-- `sentence-transformers` - Text embeddings
-- `umap-learn` - Dimensionality reduction
-- `matplotlib` - Visualization
-- `anthropic` - Claude API integration
-- `jupyter` - Notebook environment
+| Component | Model |
+|-----------|-------|
+| Facet Extraction | Claude 3.5 Haiku |
+| Embeddings | all-mpnet-base-v2 (sentence-transformers) |
+| Clustering | K-means (scikit-learn) |
+| Dimensionality Reduction | UMAP |
+| Hierarchy | Agglomerative Clustering |
 
-## Notes
+### Facet Types
 
-- **API Costs**: Facet extraction is the most expensive step (uses Claude API)
-- **Processing Time**: Full pipeline takes ~5-10 minutes for 100 conversations
-- **Scalability**: Designed for datasets up to 1000 conversations (local processing)
-- **Reproducibility**: All random seeds are set for consistent results
-- **Privacy**: PII removal happens during facet extraction step
-
-## Future Improvements
-
-- [ ] Switch to in-house LLM for facet extraction
-- [ ] Implement parallel processing for large datasets
-- [ ] Add more sophisticated hierarchy building
-- [ ] Create web-based visualization interface
-- [ ] Add evaluation metrics for cluster quality
+| Facet | Description |
+|-------|-------------|
+| Request | What the user is asking for |
+| Language | The style and tone of communication |
+| Task | The underlying task or goal |
+| Concern | Areas of user concern or importance |
