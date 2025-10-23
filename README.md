@@ -115,7 +115,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 | `name_all_clusters()` | Main function to name all clusters |
 | `sample_cluster_examples()` | Paper-accurate sampling (≤50 in-cluster + 50 nearest out-of-cluster) |
 | `build_cluster_prompt()` | Constructs Clio-style prompts for cluster naming |
-| `generate_cluster_name()` | Single cluster naming with fallback handling |
+| `generate_cluster_name()` | Single cluster naming with Claude 3.5 Sonnet |
 
 **Key Modifications:**
 - **Exact paper implementation** of sampling strategy and prompt structure
@@ -195,6 +195,7 @@ Open and execute `main.ipynb` to run the complete pipeline.
 | Facet Extraction | Claude 3.5 Haiku |
 | Embeddings | all-mpnet-base-v2 (sentence-transformers) |
 | Clustering | K-means (scikit-learn) |
+| Clustering Naming | Claude 3.5 Sonnet |
 | Dimensionality Reduction | UMAP |
 | Hierarchy | Agglomerative Clustering |
 
