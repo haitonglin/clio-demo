@@ -1,0 +1,101 @@
+You are tasked with summarizing a group of related statements into a short, precise, and accurate description and name. Your goal is to create a concise summary that captures the essence of these statements and distinguishes it from other similar groups of statements.
+
+Summarize all the statements into a clear, precise, two-sentence description in the past tense. Your summary should be specific to this group and distinguish it from the contrastive answers of the other groups.
+
+After creating the summary, generate a short name for the group of statements. This name should be at most ten words long (perhaps less) and be specific but also reflective of most of the statements (rather than reflecting only one or two). The name should distinguish this group from the contrastive examples. For instance, "Write fantasy sexual roleplay with octopi and monsters", "Generate blog spam for gambling websites", or "Assist with high school math homework" would be better and more actionable than general terms like "Write erotic content" or "Help with homework". Be as descriptive as possible and assume neither good nor bad faith. Do not hesitate to identify and describe socially harmful or sensitive topics specifically; specificity is necessary for monitoring.
+
+Present your output in the following format:
+<summary> [Insert your two-sentence summary here] </summary>
+<name> [Insert your generated short name here] </name>
+
+The names you propose must follow these requirements:
+<criteria>
+For the Request facet: the cluster name must be a sentence in the imperative (e.g., 'Brainstorm ideas for a birthday party'). At most ten words.
+</criteria>
+
+Below are the related statements:
+<answers>
+The user's overall request for the assistant is to propose a concise set of slides for a 5-minute lightning talk.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips, and to use a small multiples chart and a single summary KPI at the top to present the information.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips, presented in a concise format using a small multiples chart and a single summary KPI.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips for event planning related to the arts.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk.
+The user's overall request for the assistant is to schedule a meeting. The assistant responds with a 3-day plan and estimated costs, which suggests the user was seeking information about a meeting or event planning.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips for event planning related to the arts.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk.
+The user's overall request for the assistant is to schedule a meeting. The assistant provides a 3-day plan with estimated costs in response.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips, and to use a small multiples chart and a single summary KPI at the top to present the information.
+The user's overall request for the assistant is to summarize key points from a progress report and provide a 3-day plan with estimated costs.
+The user's overall request for the assistant is to help prepare a concise 5-minute lightning talk, including refining the content and structure to increase reliability.
+The user's overall request for the assistant is to help create a slide presentation for a 5-minute lightning talk, starting with a suggestion for a small multiples chart and a summary KPI, and then refining the slide outline to be more concise.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk. The assistant acknowledges the request and offers to outline key points and next steps.
+The user's overall request for the assistant is to provide a concise 3-day itinerary with budget tips.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips for event planning related to the arts.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips.
+The user's overall request for the assistant is to outline a 3-day itinerary with budget tips.
+The user's overall request for the assistant is to plan an event, likely related to the arts, and to provide a concise summary of the event plan and estimated costs.
+The user's overall request for the assistant is to propose slides for a 5-minute lightning talk. The assistant provides a step-by-step checklist and then a more concise 3-day plan with estimated costs to address the user's request.
+</answers>
+
+For context, here are statements from nearby groups that are NOT part of the group you are summarizing:
+<contrastive_answers>
+The user's overall request for the assistant is to help draft a concise summary and action items related to event planning for the arts.
+The user's overall request for the assistant is to write a concise email requesting a meeting.
+The user's overall request for the assistant is to write a concise email asking for meeting availability.
+The user's overall request for the assistant is to write a concise email asking for meeting availability.
+The user's overall request for the assistant is to write a concise email asking for meeting availability.
+The user's overall request for the assistant is to write a short email asking for meeting availability.
+The user's overall request for the assistant is to write a short email asking for meeting availability.
+The user's overall request for the assistant is to write a short email asking for meeting availability.
+The user's overall request for the assistant is to write a short email asking for meeting availability.
+The user's overall request for the assistant is to write a short email asking for meeting availability.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline in a concise format, such as a slide outline.
+The user's overall request for the assistant is to draft a concise summary and action items, using a small multiples chart and a single summary KPI at the top.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to draft a concise summary and action items.
+The user's overall request for the assistant is to help visualize quarterly metrics in a concise slide outline format.
+The user's overall request for the assistant is to schedule a meeting. The user does not provide any specific details about the meeting, but is asking the assistant to check availability.
+The user's overall request for the assistant is to brainstorm ways to visualize quarterly metrics.
+The user's overall request for the assistant is to brainstorm ways to visualize quarterly metrics.
+The user's overall request for the assistant is to brainstorm ways to visualize quarterly metrics.
+The user's overall request for the assistant is to summarize key points from a progress report and make the summary more concise.
+The user's overall request for the assistant is to summarize key points from a progress report.
+The user's overall request for the assistant is to summarize key points from a progress report.
+The user's overall request for the assistant is to summarize key points from a progress report in a more concise manner.
+The user's overall request for the assistant is to summarize key points from a progress report in a more concise manner.
+The user's overall request for the assistant is to create a concise checklist for clinic onboarding.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline in a concise manner.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to suggest next steps to improve the ETL pipeline.
+The user's overall request for the assistant is to create a simple checklist for clinic onboarding.
+The user's overall request for the assistant is to create a simple checklist for clinic onboarding.
+The user's overall request for the assistant is to create a simple checklist for clinic onboarding.
+The user's overall request for the assistant is to help fix a Python error related to an index being out of range. The user is looking for a more concise solution to the problem.
+</contrastive_answers>
+
+Do not elaborate beyond what you say in the tags. Remember to analyze both the statements and the contrastive statements carefully to ensure your summary and name accurately represent the specific group while distinguishing it from others.
+
+Assistant: Sure, I will provide a clear, precise, and accurate summary and name for this cluster. I will be descriptive and assume neither good nor bad faith. Here is the summary, which I will follow with the name: <summary>

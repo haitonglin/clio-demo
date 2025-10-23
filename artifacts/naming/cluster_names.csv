@@ -1,0 +1,4 @@
+cluster_id,summary,name
+0,"Participants requested or discussed topics matching a coherent theme. This cluster differed from nearby groups by emphasizing: assistant, user's, overall, request, help, fix",Summarize Assistant User's Overall Request
+1,"Participants requested or discussed topics matching a coherent theme. This cluster differed from nearby groups by emphasizing: user's, overall, request, assistant, concise, summary",Summarize User's Overall Request Assistant
+2,"Participants requested or discussed topics matching a coherent theme. This cluster differed from nearby groups by emphasizing: assistant, request, user's, overall, day, outline",Summarize Assistant Request User's Overall

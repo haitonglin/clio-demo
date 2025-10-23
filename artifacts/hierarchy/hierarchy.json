@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "n_clusters": 3,
+    "n_parents": 1,
+    "params": {
+      "text_col": "request",
+      "cluster_col": "cluster_id",
+      "n_parents": null,
+      "distance_threshold": null,
+      "linkage": "average",
+      "random_state": 42,
+      "save_dir": "artifacts/hierarchy"
+    }
+  },
+  "parents": [
+    {
+      "parent_id": 0,
+      "child_cluster_ids": [
+        0,
+        1,
+        2
+      ],
+      "parent_summary": "",
+      "parent_name": ""
+    }
+  ]
+}

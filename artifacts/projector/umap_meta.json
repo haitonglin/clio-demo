@@ -1,0 +1,9 @@
+{
+  "n_neighbors": 5,
+  "min_dist": 0.1,
+  "metric": "cosine",
+  "random_state": 123,
+  "n_components": 2,
+  "cache_dir": "artifacts/projector",
+  "cache_key": null
+}
